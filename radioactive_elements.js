@@ -1,115 +1,69 @@
-# radioactive_elements.py
-# Experimental Python version of the Sandboxels radioactive/toxic elements
+// ☢️ Radioactive & Toxic Elements
+// Sandboxels Mod
 
-class Element:
-    def __init__(self, name, color, state, category):
-        self.name = name
-        self.color = color
-        self.state = state
-        self.category = category
+// ================================
+// ☢️ RADIOACTIVE
+// ================================
 
-    def __repr__(self):
-        return f"{self.name} ({self.state})"
+elements.radium = {
+    color: "#39ff14",
+    behavior: behaviors.LIQUID,
+    category: "radioactive",
+    state: "liquid",
+    density: 5500
+};
 
+elements.thorium = {
+    color: "#777777",
+    behavior: behaviors.POWDER,
+    category: "radioactive",
+    state: "solid",
+    density: 11700
+};
 
-# ================================
-# ☢️ RADIOACTIVE ELEMENTS
-# ================================
+elements.cesium_137 = {
+    color: "#168cff",
+    behavior: behaviors.POWDER,
+    category: "radioactive",
+    state: "solid",
+    density: 1900
+};
 
-radium = Element(
-    "Radium",
-    "#39ff14",
-    "liquid",
-    "radioactive"
-)
-
-thorium = Element(
-    "Thorium",
-    "#777777",
-    "solid",
-    "radioactive"
-)
-
-cesium_137 = Element(
-    "Cesium-137",
-    "#168cff",
-    "powder",
-    "radioactive"
-)
-
-plutonium = Element(
-    "Plutonium",
-    "#4b5cff",
-    "solid",
-    "radioactive"
-)
+elements.plutonium = {
+    color: "#4b5cff",
+    behavior: behaviors.POWDER,
+    category: "radioactive",
+    state: "solid",
+    density: 19800
+};
 
 
-# ================================
-# ☣️ TOXIC ELEMENTS
-# ================================
+// ================================
+// ☣️ TOXIC
+// ================================
 
-hexavalent_chromium = Element(
-    "Hexavalent Chromium",
-    "#ff7a00",
-    "solid",
-    "toxic"
-)
+elements.hexavalent_chromium = {
+    color: "#ff7a00",
+    behavior: behaviors.POWDER,
+    category: "toxic",
+    state: "solid",
+    density: 2700
+};
 
-thallium = Element(
-    "Thallium",
-    "#777777",
-    "solid",
-    "toxic"
-)
+elements.thallium = {
+    color: "#777777",
+    behavior: behaviors.POWDER,
+    category: "toxic",
+    state: "solid",
+    density: 11800
+};
 
-arsenic = Element(
-    "Arsenic",
-    "#9b9b9b",
-    "solid",
-    "toxic"
-)
+elements.arsenic = {
+    color: "#9b9b9b",
+    behavior: behaviors.POWDER,
+    category: "toxic",
+    state: "solid",
+    density: 5700
+};
 
-
-# ================================
-# ☢️ RADIATION
-# ================================
-
-radiation = Element(
-    "Radiation",
-    "#66ccff",
-    "gas",
-    "radioactive"
-)
-
-
-# ================================
-# ELEMENT LIST
-# ================================
-
-elements = [
-    radium,
-    thorium,
-    cesium_137,
-    plutonium,
-    hexavalent_chromium,
-    thallium,
-    arsenic,
-    radiation
-]
-
-
-# ================================
-# DISPLAY
-# ================================
-
-print("☢️ Radioactive & Toxic Elements")
-print("--------------------------------")
-
-for element in elements:
-    print(
-        f"{element.name} | "
-        f"State: {element.state} | "
-        f"Category: {element.category} | "
-        f"Color: {element.color}"
-    )
+console.log("☢️ Radioactive & Toxic Elements loaded!");
