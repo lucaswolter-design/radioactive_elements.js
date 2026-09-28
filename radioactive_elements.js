@@ -1,231 +1,115 @@
-/*
-    Radioactive & Toxic Elements
-    Sandboxels Mod
-*/
+# radioactive_elements.py
+# Experimental Python version of the Sandboxels radioactive/toxic elements
 
-// ================================
-// ☢️ RADIUM
-// ================================
+class Element:
+    def __init__(self, name, color, state, category):
+        self.name = name
+        self.color = color
+        self.state = state
+        self.category = category
 
-elements.radium = {
-    name: "Radium",
-    color: "#39ff14",
-    behavior: behaviors.LIQUID,
-    category: "radioactive",
-    state: "liquid",
-    density: 5500,
-
-    tick: function(pixel) {
-        if (Math.random() < 0.08) {
-            createPixel("radiation", pixel.x, pixel.y - 1);
-        }
-    }
-};
+    def __repr__(self):
+        return f"{self.name} ({self.state})"
 
 
-// ================================
-// ☢️ THORIUM
-// ================================
+# ================================
+# ☢️ RADIOACTIVE ELEMENTS
+# ================================
 
-elements.thorium = {
-    name: "Thorium",
-    color: "#777777",
-    behavior: behaviors.POWDER,
-    category: "radioactive",
-    state: "solid",
-    density: 11700,
+radium = Element(
+    "Radium",
+    "#39ff14",
+    "liquid",
+    "radioactive"
+)
 
-    tick: function(pixel) {
-        if (Math.random() < 0.06) {
-            createPixel("radiation", pixel.x, pixel.y - 1);
-        }
-    }
-};
+thorium = Element(
+    "Thorium",
+    "#777777",
+    "solid",
+    "radioactive"
+)
 
+cesium_137 = Element(
+    "Cesium-137",
+    "#168cff",
+    "powder",
+    "radioactive"
+)
 
-// ================================
-// ☢️ CESIUM-137
-// ================================
-
-elements.cesium_137 = {
-    name: "Cesium-137",
-    color: "#168cff",
-    behavior: behaviors.POWDER,
-    category: "radioactive",
-    state: "solid",
-    density: 1900,
-
-    tick: function(pixel) {
-
-        // Release radiation
-        if (Math.random() < 0.07) {
-            createPixel("radiation", pixel.x, pixel.y - 1);
-        }
-
-        // Irradiate nearby materials
-        for (let dx = -1; dx <= 1; dx++) {
-            for (let dy = -1; dy <= 1; dy++) {
-
-                let x = pixel.x + dx;
-                let y = pixel.y + dy;
-
-                if (
-                    x >= 0 &&
-                    x < width &&
-                    y >= 0 &&
-                    y < height &&
-                    pixelMap[x][y]
-                ) {
-                    let other = pixelMap[x][y];
-
-                    if (other !== pixel) {
-                        other.radioactive = true;
-                    }
-                }
-            }
-        }
-    }
-};
+plutonium = Element(
+    "Plutonium",
+    "#4b5cff",
+    "solid",
+    "radioactive"
+)
 
 
-// ================================
-// ☢️ PLUTONIUM
-// ================================
+# ================================
+# ☣️ TOXIC ELEMENTS
+# ================================
 
-elements.plutonium = {
-    name: "Plutonium",
-    color: "#4b5cff",
-    behavior: behaviors.POWDER,
-    category: "radioactive",
-    state: "solid",
-    density: 19800,
+hexavalent_chromium = Element(
+    "Hexavalent Chromium",
+    "#ff7a00",
+    "solid",
+    "toxic"
+)
 
-    tick: function(pixel) {
+thallium = Element(
+    "Thallium",
+    "#777777",
+    "solid",
+    "toxic"
+)
 
-        // Continuous radiation
-        if (Math.random() < 0.08) {
-            createPixel("radiation", pixel.x, pixel.y - 1);
-        }
-
-        // Blue radiation flash
-        if (Math.random() < 0.015) {
-
-            for (let dx = -5; dx <= 5; dx++) {
-                for (let dy = -5; dy <= 5; dy++) {
-
-                    let x = pixel.x + dx;
-                    let y = pixel.y + dy;
-
-                    if (
-                        x >= 0 &&
-                        x < width &&
-                        y >= 0 &&
-                        y < height &&
-                        pixelMap[x][y]
-                    ) {
-                        pixelMap[x][y].radioactive = true;
-                    }
-                }
-            }
-        }
-    }
-};
+arsenic = Element(
+    "Arsenic",
+    "#9b9b9b",
+    "solid",
+    "toxic"
+)
 
 
-// ================================
-// ☣️ HEXAVALENT CHROMIUM
-// ================================
+# ================================
+# ☢️ RADIATION
+# ================================
 
-elements.hexavalent_chromium = {
-    name: "Hexavalent Chromium",
-    color: "#ff7a00",
-    behavior: behaviors.POWDER,
-    category: "toxic",
-    state: "solid",
-    density: 2700,
-
-    reactions: {
-        "human": {
-            elem2: "cancer",
-            chance: 0.15
-        }
-    }
-};
+radiation = Element(
+    "Radiation",
+    "#66ccff",
+    "gas",
+    "radioactive"
+)
 
 
-// ================================
-// ☣️ THALLIUM
-// ================================
+# ================================
+# ELEMENT LIST
+# ================================
 
-elements.thallium = {
-    name: "Thallium",
-    color: "#777777",
-    behavior: behaviors.POWDER,
-    category: "toxic",
-    state: "solid",
-    density: 11800
-};
-
-
-// ================================
-// ☣️ ARSENIC
-// ================================
-
-elements.arsenic = {
-    name: "Arsenic",
-    color: "#9b9b9b",
-    behavior: behaviors.POWDER,
-    category: "toxic",
-    state: "solid",
-    density: 5700
-};
+elements = [
+    radium,
+    thorium,
+    cesium_137,
+    plutonium,
+    hexavalent_chromium,
+    thallium,
+    arsenic,
+    radiation
+]
 
 
-// ================================
-// ☢️ RADIATION
-// ================================
+# ================================
+# DISPLAY
+# ================================
 
-elements.radiation = {
-    name: "Radiation",
-    color: [
-        "#66ccff",
-        "#00aaff",
-        "#ffffff"
-    ],
+print("☢️ Radioactive & Toxic Elements")
+print("--------------------------------")
 
-    behavior: behaviors.GAS,
-    category: "radioactive",
-    state: "gas",
-    density: 0.1,
-
-    tick: function(pixel) {
-
-        // Radiation disappears
-        if (Math.random() < 0.08) {
-            deletePixel(pixel.x, pixel.y);
-            return;
-        }
-
-        // Spread radiation
-        if (Math.random() < 0.03) {
-
-            for (let dx = -1; dx <= 1; dx++) {
-                for (let dy = -1; dy <= 1; dy++) {
-
-                    let x = pixel.x + dx;
-                    let y = pixel.y + dy;
-
-                    if (
-                        x >= 0 &&
-                        x < width &&
-                        y >= 0 &&
-                        y < height &&
-                        pixelMap[x][y]
-                    ) {
-                        pixelMap[x][y].radioactive = true;
-                    }
-                }
-            }
-        }
-    }
-};
+for element in elements:
+    print(
+        f"{element.name} | "
+        f"State: {element.state} | "
+        f"Category: {element.category} | "
+        f"Color: {element.color}"
+    )
